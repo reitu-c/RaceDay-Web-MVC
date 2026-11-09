@@ -133,3 +133,16 @@ RaceDay Web MVC source code is maintained in this GitHub repository.
 ## Developer
 
 Developed as part of the RaceDay event management system project.
+## Security Features
+
+The RaceDay MVC application uses the following security measures:
+
+- Session-based authentication through the REST API.
+- Role-based access for Organisers and Participants.
+- Protected MVC routes using authorization filters.
+- Secure session cookies configured as HTTP-only.
+- API communication through a centralised service layer.
+- Server-side validation of user-submitted form data.
+- Profile picture uploads handled securely through the API and Azure Blob Storage.
+
+The application separates Organiser and Participant functionality to prevent unauthorised access to role-specific features.

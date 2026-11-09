@@ -1,0 +1,99 @@
+﻿@model RaceDay.Web.Models.OrganiserCategoriesViewModel
+
+@{
+    ViewData["Title"] = "Manage Categories";
+}
+
+<div class="container mt-4 mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>Manage Categories</h1>
+            <p class="text-muted mb-0">@Model.Event.EventName</p>
+        </div>
+
+        <a asp-action="CreateCategory"
+           asp-route-eventId="@Model.Event.EventID"
+           class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Add Category
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Event Categories
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Categories.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Distance (KM)</th>
+                                <th>Entry Fee</th>
+                                <th>Max Participants</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <tr>
+                                    <td>@category.CategoryName</td>
+                                    <td>@category.DistanceKM.ToString("0.##") km</td>
+                                    <td>R @category.EntryFee.ToString("0.00")</td>
+                                    <td>
+                                        @(category.MaxParticipants?.ToString() ?? "Unlimited")
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+
+                                            <a asp-action="EditCategory"
+                                               asp-route-id="@category.CategoryID"
+                                               class="btn btn-sm btn-warning">
+                                                Edit
+                                            </a>
+
+                                            <form asp-action="DeleteCategory"
+                                                  asp-route-id="@category.CategoryID"
+                                                  method="post"
+                                                  onsubmit="return confirm('Delete this category?');">
+
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    No categories have been added to this event yet.
+                </div>
+            }
+
+            <a asp-action="Events"
+               class="btn btn-secondary mt-3">
+                Back to Events
+            </a>
+
+        </div>
+    </div>
+</div>

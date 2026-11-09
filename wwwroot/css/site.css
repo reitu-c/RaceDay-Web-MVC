@@ -1,0 +1,131 @@
+/* =========================================
+   RaceDay - Main Website Styling
+   ========================================= */
+
+:root {
+    --raceday-primary: #173B57;
+    --raceday-secondary: #2878A5;
+    --raceday-accent: #F4A340;
+    --raceday-background: #F4F7FA;
+    --raceday-text: #263746;
+}
+
+/* General page styling */
+html {
+    min-height: 100%;
+    font-size: 14px;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--raceday-background);
+    color: var(--raceday-text);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navigation bar */
+.navbar {
+    background-color: var(--raceday-primary) !important;
+    padding: 15px 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-brand {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    color: white !important;
+}
+
+.nav-link {
+    color: #EAF1F6 !important;
+    margin: 0 5px;
+    transition: color 0.2s ease;
+}
+
+    .nav-link:hover {
+        color: var(--raceday-accent) !important;
+    }
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: var(--raceday-primary);
+    font-weight: 700;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--raceday-secondary);
+    border-color: var(--raceday-secondary);
+}
+
+    .btn-primary:hover {
+        background-color: var(--raceday-primary);
+        border-color: var(--raceday-primary);
+    }
+
+.btn-warning {
+    background-color: var(--raceday-accent);
+    border-color: var(--raceday-accent);
+    color: #263746;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(23, 59, 87, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 20px rgba(23, 59, 87, 0.13);
+    }
+
+.card-header {
+    background-color: var(--raceday-primary);
+    color: white;
+    font-weight: 600;
+}
+
+/* Forms */
+.form-control,
+.form-select {
+    border-radius: 7px;
+    padding: 10px;
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--raceday-secondary);
+        box-shadow: 0 0 0 0.2rem rgba(40, 120, 165, 0.15);
+    }
+
+/* Alerts */
+.alert {
+    border-radius: 8px;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    background-color: white;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.35rem;
+    }
+
+    main {
+        padding-bottom: 20px;
+    }
+}

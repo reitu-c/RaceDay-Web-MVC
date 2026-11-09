@@ -1,0 +1,133 @@
+﻿@model List<RaceDay.Web.Models.MyEventViewModel>
+
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h2>My Events</h2>
+        <p class="text-muted">
+            View the events you have enrolled in.
+        </p>
+    </div>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="card p-4 text-center">
+            <h5>You have not enrolled in any events yet.</h5>
+
+            <p class="text-muted">
+                Browse available events and find your next challenge.
+            </p>
+
+            <a asp-controller="Participant"
+               asp-action="Events"
+               class="btn btn-primary">
+                Browse Events
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+
+                    <div class="card h-100">
+
+                        <div class="card-header">
+                            @item.Event.EventName
+                        </div>
+
+                        <div class="card-body">
+
+                            <p>
+                                <strong>Event Date:</strong>
+                                @item.Event.EventDate.ToString("dd MMMM yyyy")
+                            </p>
+
+                            <p>
+                                <strong>Location:</strong>
+                                @item.Event.Location
+                            </p>
+
+                            <hr />
+
+                            <p>
+                                <strong>Category:</strong>
+                                @item.Category.CategoryName
+                            </p>
+
+                            <p>
+                                <strong>Distance:</strong>
+                                @item.Category.DistanceKM km
+                            </p>
+
+                            <p>
+                                <strong>Entry Fee:</strong>
+                                @item.Category.EntryFee.ToString("C")
+                            </p>
+
+                            <p>
+                                <strong>Enrolment Date:</strong>
+                                @item.Enrolment.EnrolmentDate.ToString("dd MMM yyyy")
+                            </p>
+
+                            <p>
+                                <strong>Status:</strong>
+
+                                @if (item.Enrolment.Status == "Confirmed")
+                                {
+                                    <span class="badge bg-success">
+                                        Confirmed
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">
+                                        @item.Enrolment.Status
+                                    </span>
+                                }
+                            </p>
+
+                            @if (item.Enrolment.Status == "Confirmed")
+                            {
+                                <form asp-controller="Participant"
+                                      asp-action="CancelEnrolment"
+                                      method="post">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.Enrolment.EnrolmentID" />
+
+                                    <button type="submit"
+                                            class="btn btn-outline-danger w-100 mt-2"
+                                            onclick="return confirm('Are you sure you want to cancel this enrolment?');">
+                                        Cancel Enrolment
+                                    </button>
+
+                                </form>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
+

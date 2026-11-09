@@ -1,0 +1,90 @@
+﻿@model RaceDay.Web.Models.EventViewModel
+
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<div class="container mt-4">
+
+    <a asp-controller="Participant"
+       asp-action="EventCategories"
+       asp-route-eventId="@Model.EventID"
+       class="btn btn-primary mt-3">
+        View Available Categories
+    </a>
+
+    <div class="mb-4">
+        <a asp-controller="Participant"
+           asp-action="Events"
+           class="btn btn-outline-secondary">
+            &larr; Back to Events
+        </a>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header py-3">
+            <h3 class="text-white mb-0">
+                @Model.EventName
+            </h3>
+        </div>
+
+        <div class="card-body p-4">
+
+            <h5 class="mb-3">Event Information</h5>
+
+            <p>
+                <strong>Event ID:</strong>
+                @Model.EventID
+            </p>
+
+            <p>
+                <strong>Event Name:</strong>
+                @Model.EventName
+            </p>
+
+            <p>
+                <strong>Event Date:</strong>
+                @Model.EventDate.ToString("dd MMMM yyyy")
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                @Model.Location
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+
+                @if (Model.Status == "Open")
+                {
+                    <span class="badge bg-success">Open</span>
+                }
+                else if (Model.Status == "Closed")
+                {
+                    <span class="badge bg-secondary">Closed</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">
+                        @Model.Status
+                    </span>
+                }
+            </p>
+
+            <hr />
+
+            <h5>Description</h5>
+
+            <p>
+                @(string.IsNullOrWhiteSpace(Model.Description)
+                                ? "No description is available for this event."
+                                : Model.Description)
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+

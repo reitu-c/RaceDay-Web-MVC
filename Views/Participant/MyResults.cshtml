@@ -1,0 +1,88 @@
+﻿@model List<RaceDay.Web.Models.MyResultViewModel>
+
+@{
+    ViewData["Title"] = "My Results";
+}
+
+<div class="container py-4">
+
+    <h1 class="mb-2">My Race Results</h1>
+
+    <p class="text-muted mb-4">
+        View your race performance and finishing positions.
+    </p>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="card p-4 text-center">
+            <h5>No results available yet</h5>
+            <p class="text-muted mb-0">
+                Your race results will appear here once they have been recorded by an organiser.
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6">
+                    <div class="card h-100">
+
+                        <div class="card-header">
+                            @item.Event.EventName
+                        </div>
+
+                        <div class="card-body">
+
+                            <p>
+                                <strong>Event Date:</strong>
+                                @item.Event.EventDate.ToString("dd MMMM yyyy")
+                            </p>
+
+                            <p>
+                                <strong>Category:</strong>
+                                @item.Category.CategoryName
+                            </p>
+
+                            <hr />
+
+                            <p>
+                                <strong>Finish Time:</strong>
+                                @(item.Result.FinishTime?.ToString(@"hh\:mm\:ss") ?? "Not recorded")
+                            </p>
+
+                            <p>
+                                <strong>Overall Position:</strong>
+                                @(item.Result.OverallPosition?.ToString() ?? "Not recorded")
+                            </p>
+
+                            <p>
+                                <strong>Category Position:</strong>
+                                @(item.Result.CategoryPosition?.ToString() ?? "Not recorded")
+                            </p>
+
+                            <p class="mb-0">
+                                <strong>Result Status:</strong>
+                                <span class="badge bg-success">
+                                    @item.Result.ResultStatus
+                                </span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

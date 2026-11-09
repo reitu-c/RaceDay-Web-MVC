@@ -1,0 +1,111 @@
+﻿@model RaceDay.Web.Models.OrganiserDashboardViewModel
+
+@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h1>Organiser Dashboard</h1>
+        <p class="text-muted">
+            Welcome back! Here's an overview of your RaceDay activities.
+        </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Events</h6>
+                    <h2>@Model.TotalEvents</h2>
+                    <p class="mb-0">Events you have created</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Open Events</h6>
+                    <h2 class="text-success">@Model.OpenEvents</h2>
+                    <p class="mb-0">Accepting enrolments</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Enrolments</h6>
+                    <h2>@Model.TotalEnrolments</h2>
+                    <p class="mb-0">Participants enrolled</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Results Recorded</h6>
+                    <h2>@Model.ResultsRecorded</h2>
+                    <p class="mb-0">Race results captured</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <h3 class="mb-3">Quick Actions</h3>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5>Manage Events</h5>
+                    <p class="text-muted">
+                        Create, update and manage your race events.
+                    </p>
+                    <a asp-action="Events"
+                       class="btn btn-primary">
+                        View Events
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5>Participant Enrolments</h5>
+                    <p class="text-muted">
+                        View participants registered for your events.
+                    </p>
+                    <a asp-action="Enrolments"
+                       class="btn btn-primary">
+                        View Enrolments
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5>Manage Results</h5>
+                    <p class="text-muted">
+                        Record and update race results.
+                    </p>
+                    <a asp-action="Results"
+                       class="btn btn-primary">
+                        View Results
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

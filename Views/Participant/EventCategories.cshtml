@@ -1,0 +1,81 @@
+﻿@model RaceDay.Web.Models.EventCategoriesViewModel
+
+@{
+    ViewData["Title"] = "Event Categories";
+}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h2>@Model.Event.EventName</h2>
+        <p class="text-muted">
+            Choose a race category for this event.
+        </p>
+        <p>
+            <strong>Event Date:</strong>
+            @Model.Event.EventDate.ToString("dd MMMM yyyy")
+        </p>
+        <p>
+            <strong>Location:</strong>
+            @Model.Event.Location
+        </p>
+    </div>
+
+    <h4 class="mb-3">Available Categories</h4>
+
+    @if (Model.Categories.Count == 0)
+    {
+        <div class="alert alert-info">
+            No categories have been added to this event yet.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            @category.CategoryName
+                        </div>
+
+                        <div class="card-body">
+                            <p>
+                                <strong>Distance:</strong>
+                                @category.DistanceKM km
+                            </p>
+
+                            <p>
+                                <strong>Entry Fee:</strong>
+                                @category.EntryFee.ToString("C")
+                            </p>
+
+                            <p>
+                                <strong>Maximum Participants:</strong>
+                                @(category.MaxParticipants?.ToString() ?? "Unlimited")
+                            </p>
+
+                            <a asp-controller="Participant"
+                               asp-action="Enrol"
+                               asp-route-eventId="@Model.Event.EventID"
+                               class="btn btn-primary w-100 mt-2">
+                                Enrol in This Category
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <a asp-controller="Participant"
+       asp-action="EventDetails"
+       asp-route-id="@Model.Event.EventID"
+       class="btn btn-outline-secondary mt-3">
+        Back to Event Details
+    </a>
+
+</div>
+

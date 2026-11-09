@@ -1,0 +1,145 @@
+﻿@model RaceDay.Web.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container py-5">
+
+    <div class="mb-4">
+        <h1>My Profile</h1>
+        <p class="text-muted">
+            Manage your personal information and profile picture.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Profile picture section -->
+        <div class="col-lg-4">
+            <div class="card p-4 text-center">
+
+                <h4 class="mb-3">Profile Picture</h4>
+
+                <img src="@Url.Action("Picture", "Profile")"
+                     alt="Participant profile picture"
+                     class="rounded-circle mx-auto mb-3"
+                     style="width:160px;height:160px;object-fit:cover;"
+                     onerror="this.src='https://placehold.co/160x160?text=Profile';" />
+
+                <form asp-controller="Profile"
+                      asp-action="UploadPicture"
+                      method="post"
+                      enctype="multipart/form-data">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3 text-start">
+                        <label class="form-label">
+                            Choose a new picture
+                        </label>
+
+                        <input type="file"
+                               name="file"
+                               class="form-control"
+                               accept=".jpg,.jpeg,.png,.webp"
+                               required />
+
+                        <small class="text-muted">
+                            JPG, PNG or WEBP. Maximum size: 5 MB.
+                        </small>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+                        Upload Picture
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Personal details section -->
+        <div class="col-lg-8">
+            <div class="card p-4">
+
+                <h4 class="mb-4">Personal Information</h4>
+
+                <form asp-controller="Profile"
+                      asp-action="Index"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" asp-for="UserID" />
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="FullName"
+                               class="form-label">
+                            Full Name
+                        </label>
+
+                        <input asp-for="FullName"
+                               class="form-control" />
+
+                        <span asp-validation-for="FullName"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email"
+                               class="form-label">
+                            Email Address
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Phone"
+                               class="form-label">
+                            Phone Number
+                        </label>
+
+                        <input asp-for="Phone"
+                               class="form-control" />
+
+                        <span asp-validation-for="Phone"
+                              class="text-danger">
+                        </span>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Save Changes
+                    </button>
+
+                    <a asp-controller="Participant"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary ms-2">
+                        Cancel
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

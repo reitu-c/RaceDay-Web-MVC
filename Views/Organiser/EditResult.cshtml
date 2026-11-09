@@ -1,0 +1,134 @@
+﻿@model RaceDay.Web.Models.ResultFormViewModel
+
+@{
+    ViewData["Title"] = "Edit Result";
+
+    var enrolment =
+        ViewBag.EnrolmentDetails as RaceDay.Web.Models.OrganiserEnrolmentViewModel;
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-white mb-0">Edit Race Result</h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    @if (enrolment != null)
+                    {
+                        <div class="alert alert-info">
+                            <strong>Participant:</strong> @enrolment.ParticipantName
+                            <br />
+                            <strong>Event:</strong> @enrolment.EventName
+                            <br />
+                            <strong>Category:</strong> @enrolment.CategoryName
+                        </div>
+                    }
+
+                    <form asp-action="EditResult"
+                          asp-route-id="@Model.ResultID"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" asp-for="ResultID" />
+                        <input type="hidden" asp-for="EnrolmentID" />
+
+                        <div asp-validation-summary="All"
+                             class="text-danger mb-3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ResultStatus"
+                                   class="form-label">
+                                Result Status
+                            </label>
+
+                            <select asp-for="ResultStatus"
+                                    class="form-select">
+                                <option value="Finished">Finished</option>
+                                <option value="Did Not Finish">Did Not Finish</option>
+                                <option value="Disqualified">Disqualified</option>
+                            </select>
+
+                            <span asp-validation-for="ResultStatus"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FinishTime"
+                                   class="form-label">
+                                Finish Time
+                            </label>
+
+                            <input asp-for="FinishTime"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Example: 01:25:30" />
+
+                            <small class="text-muted">
+                                Enter time as HH:MM:SS.
+                            </small>
+
+                            <span asp-validation-for="FinishTime"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="OverallPosition"
+                                   class="form-label">
+                                Overall Position
+                            </label>
+
+                            <input asp-for="OverallPosition"
+                                   type="number"
+                                   min="1"
+                                   class="form-control" />
+
+                            <span asp-validation-for="OverallPosition"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="CategoryPosition"
+                                   class="form-label">
+                                Category Position
+                            </label>
+
+                            <input asp-for="CategoryPosition"
+                                   type="number"
+                                   min="1"
+                                   class="form-control" />
+
+                            <span asp-validation-for="CategoryPosition"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Save Changes
+                            </button>
+
+                            <a asp-action="Results"
+                               class="btn btn-secondary">
+                                Cancel
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

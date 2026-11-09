@@ -1,0 +1,94 @@
+﻿@model RaceDay.Web.Models.EnrolmentPageViewModel
+
+@{
+    ViewData["Title"] = "Enrol in Event";
+}
+
+<div class="row justify-content-center py-4">
+    <div class="col-md-8 col-lg-6">
+
+        <div class="card">
+            <div class="card-header py-3">
+                <h3 class="text-white mb-0">Enrol in Event</h3>
+            </div>
+
+            <div class="card-body p-4">
+
+                <h4>@Model.Event.EventName</h4>
+
+                <p class="text-muted">
+                    @Model.Event.EventDate.ToString("dd MMMM yyyy")
+                    | @Model.Event.Location
+                </p>
+
+                @if (Model.Categories.Count == 0)
+                {
+                    <div class="alert alert-warning">
+                        No categories are currently available for this event.
+                    </div>
+                }
+                else
+                {
+                    <form asp-controller="Participant"
+                          asp-action="Enrol"
+                          method="post">
+
+                        <input type="hidden"
+                               name="eventId"
+                               value="@Model.Event.EventID" />
+
+                        <div class="mb-3">
+                            <label class="form-label" for="CategoryID">
+                                Select Race Category
+                            </label>
+
+                            <select name="CategoryID"
+                                    id="CategoryID"
+                                    class="form-select"
+                                    required>
+
+                                <option value="">-- Select a category --</option>
+
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category.CategoryID">
+                                        @category.CategoryName -
+                                        @category.DistanceKM km -
+                                        @category.EntryFee.ToString("C")
+                                    </option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label" for="EmergencyContact">
+                                Emergency Contact (Optional)
+                            </label>
+
+                            <input type="text"
+                                   name="EmergencyContact"
+                                   id="EmergencyContact"
+                                   class="form-control"
+                                   maxlength="100"
+                                   placeholder="Enter emergency contact details" />
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            Continue with Enrolment
+                        </button>
+                    </form>
+                }
+
+                <a asp-controller="Participant"
+                   asp-action="EventCategories"
+                   asp-route-eventId="@Model.Event.EventID"
+                   class="btn btn-outline-secondary w-100 mt-3">
+                    Back to Categories
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+

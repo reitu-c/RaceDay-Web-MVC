@@ -1,0 +1,111 @@
+﻿@model List<RaceDay.Web.Models.EventViewModel>
+
+@{
+    ViewData["Title"] = "Browse Events";
+}
+
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h2>Browse Sporting Events</h2>
+        <p class="text-muted">
+            Discover upcoming events and find your next challenge.
+        </p>
+    </div>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="card">
+            <div class="card-body text-center p-5">
+                <h4>No Events Available</h4>
+                <p class="text-muted">
+                    There are currently no events to display.
+                    Please check again later.
+                </p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var eventItem in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card h-100">
+
+                        <div class="card-body p-4">
+
+                            <div class="d-flex justify-content-between
+                                                align-items-start mb-3">
+
+                                <h5 class="card-title">
+                                    @eventItem.EventName
+                                </h5>
+
+                                @if (eventItem.Status == "Open")
+                                {
+                                    <span class="badge bg-success">
+                                        Open
+                                    </span>
+                                }
+                                else if (eventItem.Status == "Closed")
+                                {
+                                    <span class="badge bg-secondary">
+                                        Closed
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">
+                                        Cancelled
+                                    </span>
+                                }
+
+                        </div>
+
+                        <p>
+                            <strong>Date:</strong>
+                            @eventItem.EventDate.ToString("dd MMM yyyy")
+                        </p>
+
+                        <p>
+                            <strong>Location:</strong>
+                            @eventItem.Location
+                        </p>
+
+                        <p class="text-muted">
+                            @(string.IsNullOrWhiteSpace(eventItem.Description)
+                                                    ? "No description available."
+                                                    : eventItem.Description)
+                        </p>
+
+
+                            <a asp-controller="Participant"
+                               asp-action="EventDetails"
+                               asp-route-id="@eventItem.EventID"
+                               class="btn btn-primary w-100 mt-3">
+                                View Details
+                            </a>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+                }
+
+        </div>
+    }
+
+</div>
+

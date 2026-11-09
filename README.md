@@ -113,7 +113,19 @@ GitHub Actions is configured to automatically:
 4. Build the MVC application in Release configuration.
 
 The workflow runs when changes are pushed to the `main` branch or when a pull request targets `main`.
+## Automated Testing
 
+The MVC application includes an xUnit test project for validating profile input data.
+
+The tests cover:
+- Required profile fields.
+- Invalid email addresses.
+- Valid participant profile details.
+
+To run the tests locally using Visual Studio or the .NET CLI:
+
+```bash
+dotnet test
 ## Repository
 
 RaceDay Web MVC source code is maintained in this GitHub repository.

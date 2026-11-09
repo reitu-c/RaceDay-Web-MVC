@@ -1,0 +1,29 @@
+name: RaceDay MVC CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build RaceDay MVC
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Install .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore RaceDay.Web.csproj
+
+      - name: Build MVC application
+        run: dotnet build RaceDay.Web.csproj --configuration Release --no-restore

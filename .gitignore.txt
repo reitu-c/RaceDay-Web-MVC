@@ -18,3 +18,16 @@ Thumbs.db
 
 # Local development settings
 appsettings.Development.json
+
+# Test results and coverage reports
+TestResults/
+*.coverage
+*.coveragexml
+
+# Deployment output
+publish/
+artifacts/
+
+# Local environment files
+.env
+.env.*

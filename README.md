@@ -146,3 +146,14 @@ The RaceDay MVC application uses the following security measures:
 - Profile picture uploads handled securely through the API and Azure Blob Storage.
 
 The application separates Organiser and Participant functionality to prevent unauthorised access to role-specific features.
+## System Architecture
+
+RaceDay follows a client-server architecture.
+
+1. **Presentation Layer:** ASP.NET Core MVC controllers and Razor views provide the user interface.
+2. **Service Layer:** RaceDayApiService manages HTTP communication between the MVC application and the REST API.
+3. **API Layer:** The RaceDay REST API processes requests, applies authorisation and validation, and performs data operations.
+4. **Data Layer:** Entity Framework Core communicates with the SQL Server database.
+5. **Cloud Storage:** Azure Blob Storage stores uploaded profile pictures.
+
+The MVC application does not access the database directly. All application data is retrieved and updated through the REST API.

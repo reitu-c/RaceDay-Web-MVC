@@ -157,3 +157,4 @@ RaceDay follows a client-server architecture.
 5. **Cloud Storage:** Azure Blob Storage stores uploaded profile pictures.
 
 The MVC application does not access the database directly. All application data is retrieved and updated through the REST API.
+YouTube link: https://youtu.be/uW0PGflgjlM?si=g56loclsb0faTJTn
